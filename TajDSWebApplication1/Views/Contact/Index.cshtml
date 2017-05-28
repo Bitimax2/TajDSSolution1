@@ -1,0 +1,34 @@
+﻿@model IEnumerable<TajDSWebApplication1.ViewModel.ContactModel>
+
+@{
+    ViewBag.Title = "Contact List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var grid = new WebGrid(source: Model, canPage: true, canSort: true, rowsPerPage: 10);
+}
+
+<h3>Contact List</h3>
+<li>@Html.ActionLink("Add Contact", "Add", "Contact")</li>
+
+<div style="overflow:auto">
+
+    @grid.GetHtml(
+        tableStyle: "table table-responsive",
+        columns:grid.Columns
+            (
+
+                                        grid.Column("FirstName", "First Name"),
+                                        grid.Column("LastName", "Last Name"),
+                                        grid.Column("ContactNo1", "Contact No1"),
+                                        grid.Column("ContactNo2", "Website"),
+                                        grid.Column("CountryName"),
+                                     
+                                        grid.Column("EmailID", "Email ID"),
+                                      
+                                      
+                grid.Column(header: "Image", format:@<text>@Html.Raw((item.ImagePath == null ? "" : "<img width='100' alt='' src='/image/" + item.ImagePath + "'"))</text>),
+                grid.Column(header: "View", format: (item) => Html.ActionLink("View", "View", "Contact", new { id = item.ContactID }, null)),
+                grid.Column(header: "Edit", format: (item) => Html.ActionLink("Edit", "Edit", "Contact", new { id = item.ContactID }, null)),
+                grid.Column(header: "Delete", format: (item) => Html.ActionLink("Delete", "Delete", "Contact", new { id = item.ContactID }, null))
+            )
+        )
+</div>

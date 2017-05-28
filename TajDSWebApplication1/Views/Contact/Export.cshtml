@@ -1,0 +1,33 @@
+﻿@model List< TajDSWebApplication1.ViewModel.ContactModel>
+
+@{
+    ViewBag.Title = "Export";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var grid = new WebGrid(source: Model, canPage: true, canSort: true, rowsPerPage: 10);
+}
+
+<h2>Export</h2>
+<div style="overflow:auto">
+    @grid.GetHtml(
+        tableStyle: "table table-responsive",
+        columns: grid.Columns(
+                    grid.Column("ContactID", "Contact ID"),
+                    grid.Column("FirstName", "First Name"),
+                    grid.Column("LastName", "Last Name"),
+                    grid.Column("ContactNo1", "Contact No1"),
+                    grid.Column("ContactNo2", "Website"),
+                    grid.Column("EmailID", "Email ID"),
+                    grid.Column("CountryName", "CountryName")
+              
+                //grid.Column("State", "State")
+
+                )
+            )
+
+</div>
+<div>
+    @using (Html.BeginForm())
+    {
+        <input type="submit" value="Export" class="btn btn-primary" />
+    }
+</div>
